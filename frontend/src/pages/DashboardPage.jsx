@@ -48,11 +48,11 @@ export default function DashboardPage() {
     <main className="app-shell">
       <section className="hero-panel">
         <div className="hero-copy">
-          <span className="eyebrow">T-Sync Demo</span>
-          <h1>실시간 버스 환승 실패를 먼저 보여주는 공공데이터 데모</h1>
+          <span className="eyebrow">T-Sync</span>
+          <h1>실시간 버스 환승 실패를 먼저 보여주는 공공데이터 서비스</h1>
           <p>
-            전국 초정밀 버스 실시간 위치 정보와 노선 경유지 데이터를 활용해
-            환승 성공 확률을 계산하고, 위험할 때는 더 안전한 대안 전략을 추천합니다.
+            전국 초정밀 버스 실시간 위치 정보와 노선 경유지 데이터를 활용해 환승 성공 가능성을 계산하고,
+            위험할 때는 더 안전한 대안 전략을 추천합니다.
           </p>
         </div>
         <div className="hero-summary">
@@ -62,10 +62,10 @@ export default function DashboardPage() {
           </div>
           <div>
             <span>공공데이터 활용</span>
-            <strong>실시간 위치 + 정류장 순서 결합</strong>
+            <strong>실시간 위치와 정류장 순서 결합</strong>
           </div>
           <div>
-            <span>시연 포인트</span>
+            <span>서비스 흐름</span>
             <strong>입력 → 예측 → 대안 추천</strong>
           </div>
         </div>

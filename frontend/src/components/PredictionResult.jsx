@@ -2,8 +2,27 @@ import SectionCard from "./SectionCard";
 
 function riskLabel(riskLevel) {
   if (riskLevel === "stable" || riskLevel === "safe") return "안정";
-  if (riskLevel === "uncertain") return "불확실";
+  if (riskLevel === "uncertain") return "주의";
   return "위험";
+}
+
+function formatDuration(seconds) {
+  if (seconds === null || seconds === undefined || Number.isNaN(Number(seconds))) {
+    return "-";
+  }
+
+  const roundedSeconds = Math.round(Number(seconds));
+  const totalSeconds = Math.abs(roundedSeconds);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const remainingSeconds = totalSeconds % 60;
+
+  const parts = [];
+  if (hours > 0) parts.push(`${hours}시간`);
+  if (minutes > 0) parts.push(`${minutes}분`);
+  if (remainingSeconds > 0 || parts.length === 0) parts.push(`${remainingSeconds}초`);
+
+  return `${roundedSeconds < 0 ? "-" : ""}${parts.join(" ")}`;
 }
 
 export default function PredictionResult({ result, error }) {
@@ -22,16 +41,18 @@ export default function PredictionResult({ result, error }) {
     <SectionCard
       eyebrow="Step 5"
       title="예측 결과"
-      description="심사위원이 바로 이해할 수 있도록 핵심 지표와 대안 전략을 한 화면에서 보여줍니다."
+      description="환승 성공 가능성과 시간 여유를 계산하고, 더 안전한 대안 전략을 함께 안내합니다."
     >
-      {!result && !error ? <p className="helper-text">예측을 실행하면 결과가 여기에 표시됩니다.</p> : null}
+      {!result && !error ? (
+        <p className="helper-text">예측을 실행하면 결과가 이곳에 표시됩니다.</p>
+      ) : null}
       {error ? <p className="error-text">{error}</p> : null}
       {result ? (
         <div className="result-stack">
           <div className="hero-result">
             <div>
               <span className={`risk-badge ${result.risk_level}`}>{riskLabel(result.risk_level)}</span>
-              <h3>{result.transfer_station_name} 환승 예측</h3>
+              <h3>{result.transfer_station_name ? `${result.transfer_station_name} 환승 예측` : "환승 예측 결과"}</h3>
               <p>
                 성공 확률 <strong>{Math.round(result.success_probability * 100)}%</strong>
               </p>
@@ -39,19 +60,19 @@ export default function PredictionResult({ result, error }) {
             <div className="metric-grid">
               <div className="metric-card">
                 <span>현재 차량 도착</span>
-                <strong>{currentArrivalSeconds ?? "-"}초</strong>
+                <strong>{formatDuration(currentArrivalSeconds)}</strong>
               </div>
               <div className="metric-card">
                 <span>목표 차량 도착</span>
-                <strong>{targetArrivalSeconds ?? "-"}초</strong>
+                <strong>{formatDuration(targetArrivalSeconds)}</strong>
               </div>
               <div className="metric-card">
                 <span>보행 시간</span>
-                <strong>{walkingTimeSeconds ?? "-"}초</strong>
+                <strong>{formatDuration(walkingTimeSeconds)}</strong>
               </div>
               <div className="metric-card">
                 <span>환승 여유시간</span>
-                <strong>{slackSeconds ?? "-"}초</strong>
+                <strong>{formatDuration(slackSeconds)}</strong>
               </div>
             </div>
           </div>
@@ -74,7 +95,7 @@ export default function PredictionResult({ result, error }) {
                   <p>{item.transfer_station_name}</p>
                   <div className="recommendation-stats">
                     <span>성공 확률 {Math.round(item.success_probability * 100)}%</span>
-                    <span>여유시간 {item.slack_seconds}초</span>
+                    <span>여유시간 {formatDuration(item.slack_seconds)}</span>
                   </div>
                   <small>{item.summary}</small>
                 </article>
