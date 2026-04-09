@@ -18,6 +18,7 @@ services:
       retries: 20
 
   importer:
+    image: ${DOCKERHUB_USERNAME}/tsync-importer:${TSYNC_IMAGE_TAG:-latest}
     build: ./DB/importer
     container_name: tsync-importer
     depends_on:
@@ -33,6 +34,7 @@ services:
     command: ["python", "-u", "app.py"]
 
   backend:
+    image: ${DOCKERHUB_USERNAME}/tsync-backend:${TSYNC_IMAGE_TAG:-latest}
     build: ./backend
     container_name: tsync-backend
     depends_on:
@@ -42,6 +44,15 @@ services:
       DATABASE_URL: ${DATABASE_URL}
     ports:
       - "8000:8000"
+
+  frontend:
+    image: ${DOCKERHUB_USERNAME}/tsync-frontend:${TSYNC_IMAGE_TAG:-latest}
+    build: ./frontend
+    container_name: tsync-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
 
 volumes:
   pgdata:
