@@ -91,16 +91,16 @@ export default function TransferStationPicker({
     <SectionCard
       eyebrow="Step 3"
       title="환승 정류장 선택"
-      description="현재 노선 안의 정류장 중에서 환승을 시도할 지점을 고릅니다."
+      description="현재 노선에서 어디서 갈아탈지 정류장을 골라주세요."
     >
       {!currentRoute || !targetRoute ? (
-        <p className="helper-text">현재 노선과 목표 노선을 먼저 선택해 주세요.</p>
+        <p className="helper-text">현재 탑승 노선과 환승할 노선을 먼저 선택해 주세요.</p>
       ) : null}
       <input
         className="text-input"
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
-        placeholder="현재 노선 정류장 검색"
+        placeholder="정류장 이름 검색"
       />
       {loading ? <p className="helper-text">정류장 정보를 불러오는 중입니다.</p> : null}
       {error ? <p className="error-text">{error}</p> : null}

@@ -1,9 +1,21 @@
 import SectionCard from "./SectionCard";
 
 const profiles = [
-  { value: "fast", label: "빠른 이동형", description: "보행 여유시간 60초 기준" },
-  { value: "normal", label: "일반 이동형", description: "보행 여유시간 90초 기준" },
-  { value: "slow", label: "느린 이동형", description: "보행 여유시간 140초 기준" },
+  {
+    value: "fast",
+    label: "빠르게 걷는 편",
+    description: "예: 평소 걸음이 빠른 경우",
+  },
+  {
+    value: "normal",
+    label: "보통 걸음",
+    description: "예: 평소 보통 속도로 이동하는 경우",
+  },
+  {
+    value: "slow",
+    label: "천천히 걷는 편",
+    description: "예: 교통약자, 임산부, 짐이 많은 경우",
+  },
 ];
 
 export default function PredictionForm({
@@ -19,11 +31,11 @@ export default function PredictionForm({
     <SectionCard
       eyebrow="Step 4"
       title="환승 예측 실행"
-      description="사용자 프로필을 선택한 뒤 환승 성공 확률과 대안 전략을 계산합니다."
+      description="평소 걷는 속도에 맞게 선택한 뒤 환승 가능성을 확인해 보세요."
     >
       <div className="form-grid">
         <label className="field">
-          <span>사용자 식별값</span>
+          <span>사용자 이름</span>
           <input
             className="text-input"
             value={userId}
@@ -45,7 +57,7 @@ export default function PredictionForm({
           ))}
         </div>
         <button type="button" className="primary-button" onClick={onSubmit} disabled={disabled || loading}>
-          {loading ? "예측 계산 중..." : "환승 성공 확률 계산"}
+          {loading ? "계산 중..." : "환승 가능성 보기"}
         </button>
       </div>
     </SectionCard>

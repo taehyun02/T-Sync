@@ -1,9 +1,9 @@
 import SectionCard from "./SectionCard";
 
 function riskLabel(riskLevel) {
-  if (riskLevel === "stable" || riskLevel === "safe") return "안정";
-  if (riskLevel === "uncertain") return "주의";
-  return "위험";
+  if (riskLevel === "stable" || riskLevel === "safe") return "여유 있음";
+  if (riskLevel === "uncertain") return "빠듯함";
+  return "놓칠 가능성 높음";
 }
 
 function formatDuration(seconds) {
@@ -41,7 +41,7 @@ export default function PredictionResult({ result, error }) {
     <SectionCard
       eyebrow="Step 5"
       title="예측 결과"
-      description="환승 성공 가능성과 시간 여유를 계산하고, 더 안전한 대안 전략을 함께 안내합니다."
+      description="갈아탈 수 있을지 확인하고, 놓칠 가능성이 크면 다른 방법도 함께 보여줍니다."
     >
       {!result && !error ? (
         <p className="helper-text">예측을 실행하면 결과가 이곳에 표시됩니다.</p>
@@ -63,15 +63,15 @@ export default function PredictionResult({ result, error }) {
                 <strong>{formatDuration(currentArrivalSeconds)}</strong>
               </div>
               <div className="metric-card">
-                <span>목표 차량 도착</span>
+                <span>환승할 버스 도착</span>
                 <strong>{formatDuration(targetArrivalSeconds)}</strong>
               </div>
               <div className="metric-card">
-                <span>보행 시간</span>
+                <span>걷는 시간</span>
                 <strong>{formatDuration(walkingTimeSeconds)}</strong>
               </div>
               <div className="metric-card">
-                <span>환승 여유시간</span>
+                <span>갈아탈 시간</span>
                 <strong>{formatDuration(slackSeconds)}</strong>
               </div>
             </div>

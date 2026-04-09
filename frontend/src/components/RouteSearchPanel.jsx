@@ -48,7 +48,7 @@ export default function RouteSearchPanel({
     <SectionCard
       eyebrow={label}
       title={title}
-      description="노선 번호나 기점/종점을 검색해서 환승 시나리오를 구성하세요."
+      description="노선 번호나 기점, 종점을 검색해서 환승 경로를 골라보세요."
     >
       <div className="control-stack">
         <input
@@ -68,8 +68,10 @@ export default function RouteSearchPanel({
               onClick={() => onSelectRoute(route)}
             >
               <strong>{route.route_no}</strong>
-              <span>{route.start_stop} → {route.end_stop}</span>
-              <small>{route.route_type || "노선 유형 미확인"}</small>
+              <span>
+                {route.start_stop} → {route.end_stop}
+              </span>
+              <small>{route.route_type || "노선 유형 정보 없음"}</small>
             </button>
           ))}
         </div>

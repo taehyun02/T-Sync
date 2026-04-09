@@ -50,11 +50,11 @@ export default function VehiclePicker({
   return (
     <SectionCard
       eyebrow="Step 2"
-      title="현재 탑승 차량 선택"
-      description="실시간 차량 위치 데이터 중 하나를 골라 실제 환승 상황을 시뮬레이션합니다."
+      title="현재 탑승 버스 선택"
+      description="실시간 위치가 잡힌 버스 중에서 지금 타고 있는 버스를 골라주세요."
     >
       {!route ? <p className="helper-text">먼저 현재 탑승 노선을 선택해 주세요.</p> : null}
-      {loading ? <p className="helper-text">차량 위치를 불러오는 중입니다.</p> : null}
+      {loading ? <p className="helper-text">버스 정보를 불러오는 중입니다.</p> : null}
       {error ? <p className="error-text">{error}</p> : null}
       <div className="list-grid">
         {vehicles.map((vehicle) => (
@@ -66,7 +66,7 @@ export default function VehiclePicker({
           >
             <strong>{vehicle.vehicle_no}</strong>
             <span>속도 {vehicle.operation_speed ?? "-"} km/h</span>
-            <small>{vehicle.collected_at ?? "수집 시각 없음"}</small>
+            <small>{vehicle.collected_at ?? "수집 시각 정보 없음"}</small>
           </button>
         ))}
       </div>
